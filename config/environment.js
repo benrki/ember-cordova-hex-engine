@@ -3,6 +3,7 @@
 module.exports = function(environment) {
   var ENV = {
     modulePrefix: 'hex',
+    podModulePrefix: 'hex/pods',
     environment: environment,
     baseURL: '/',
     defaultLocationType: 'auto',
