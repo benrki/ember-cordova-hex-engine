@@ -1,4 +1,5 @@
 /* jshint node: true */
+contentSecurityPolicy = require('./security');
 
 module.exports = function(environment) {
   var ENV = {
@@ -6,6 +7,7 @@ module.exports = function(environment) {
     podModulePrefix: 'hex/pods',
     environment: environment,
     baseURL: '/',
+    locationType: 'hash',
     defaultLocationType: 'auto',
     EmberENV: {
       FEATURES: {
@@ -22,7 +24,8 @@ module.exports = function(environment) {
     cordova: {
       rebuildOnChange: false,
       emulate: false
-    }
+    },
+    contentSecurityPolicy: contentSecurityPolicy
   };
 
   if (environment === 'development') {
@@ -36,7 +39,7 @@ module.exports = function(environment) {
   if (environment === 'test') {
     // Testem prefers this...
     ENV.baseURL = '/';
-    ENV.defaultLocationType = 'none';
+    ENV.locationType = 'none';
 
     // keep test console output quieter
     ENV.APP.LOG_ACTIVE_GENERATION = false;
