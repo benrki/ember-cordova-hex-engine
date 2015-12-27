@@ -2,7 +2,7 @@
 
 moduleForModel 'resources', 'Unit | Model | resources', {
   # Specify the other units that are required for this test.
-  needs: []
+  needs: ['model:hex']
 }
 
 test 'it exists', (assert) ->
