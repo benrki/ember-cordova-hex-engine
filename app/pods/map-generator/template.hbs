@@ -1,2 +1,11 @@
 <h2>Generate a map</h2>
+
+{{#paper-select placeholder="Size"}}
+  {{#each sizes as |size|}}
+    {{#paper-option value=size.size}}
+      {{size.name}}
+    {{/paper-option}}
+  {{/each}}
+{{/paper-select}}
+
 {{#paper-button raised=true action="generateMap"}}generate{{/paper-button}}
