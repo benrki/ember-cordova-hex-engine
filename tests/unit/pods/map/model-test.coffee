@@ -1,6 +1,6 @@
 `import { moduleForModel, test } from 'ember-qunit'`
 
-moduleForModel 'hex', 'Unit | Model | hex', {
+moduleForModel 'map', 'Unit | Model | map', {
   # Specify the other units that are required for this test.
   needs: []
 }
