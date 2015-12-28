@@ -1,4 +1,5 @@
 /* jshint node: true */
+defaults              = require('./default');
 contentSecurityPolicy = require('./security');
 
 module.exports = function(environment) {
@@ -29,7 +30,8 @@ module.exports = function(environment) {
         platform: 'ios'
       }
     },
-    contentSecurityPolicy: contentSecurityPolicy
+    contentSecurityPolicy: contentSecurityPolicy,
+    defaults: defaults
   };
 
   if (environment === 'development') {
