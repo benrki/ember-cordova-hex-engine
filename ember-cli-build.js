@@ -20,5 +20,8 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
+  // Globals
+  app.import('bower_components/async/dist/async.js');
+
   return app.toTree();
 };
