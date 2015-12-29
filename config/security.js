@@ -5,5 +5,6 @@ module.exports = {
   'connect-src': "'self'",
   'img-src': "'self'",
   'style-src': "'self' 'unsafe-inline'",
-  'media-src': "'self'"
+  'media-src': "'self'",
+  'frame-src': "gap:"
 }

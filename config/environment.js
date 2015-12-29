@@ -30,7 +30,9 @@ module.exports = function(environment) {
         platform: 'ios'
       }
     },
+
     contentSecurityPolicy: contentSecurityPolicy,
+
     defaults: defaults
   };
 

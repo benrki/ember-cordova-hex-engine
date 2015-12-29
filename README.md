@@ -23,6 +23,8 @@ You will need the following things properly installed on your computer.
 
 * `ember server`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
+* Cordova disabled (for browser serving) `EMBER_CLI_CORDOVA=0 ember server`
+* Cordova enabled (for simulation/deploying) `EMBER_CLI_CORDOVA=1 ember server`
 
 ### Code Generators
 
@@ -37,6 +39,7 @@ Make use of the many generators for code, try `ember help generate` for more det
 
 * `ember build` (development)
 * `ember build --environment production` (production)
+* `ember cordova:build`
 
 ### Deploying
 
