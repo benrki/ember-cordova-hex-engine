@@ -6,6 +6,11 @@ module.exports = {
       { name: "Large", size: 10 },
       { name: "Medium", size: 7 },
       { name: "Small", size: 5 }
-    ]
-  }
+    ],
+    path: "maps"
+  },
+  folders: [
+    "maps/default",
+    "saves"
+  ]
 }

@@ -22,6 +22,7 @@ module.exports = function(defaults) {
 
   // Globals
   app.import('bower_components/async/dist/async.js');
+  app.import('bower_components/underscore/underscore.js')
 
   return app.toTree();
 };

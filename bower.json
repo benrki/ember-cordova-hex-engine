@@ -14,7 +14,8 @@
     "matchMedia": "0.2.0",
     "bootstrap": "~3.3.5",
     "blob-polyfill": "~1.0.20150320",
-    "async": "~1.5.0"
+    "async": "~1.5.0",
+    "underscore": "~1.8.3"
   },
   "resolutions": {
     "ember": "2.2.0"

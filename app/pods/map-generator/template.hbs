@@ -1,8 +1,8 @@
-<h2>Generate a map</h2>
+<h1>Generate a map</h1>
 
-{{#paper-select placeholder="Size"}}
+{{#paper-select placeholder="Size" model=size}}
   {{#each sizes as |size|}}
-    {{#paper-option value=size.size}}
+    {{#paper-option value=size}}
       {{size.name}}
     {{/paper-option}}
   {{/each}}
