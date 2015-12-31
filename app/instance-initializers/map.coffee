@@ -17,7 +17,7 @@ initialize = (appInstance) ->
       store.createRecord 'map',
         name:  file.name
         hexes: hexes
-        size:  Math.cbrt hexes.length
+        size:  hexes.length
       do done
 
     reader.readAsText(file)
@@ -25,7 +25,7 @@ initialize = (appInstance) ->
   loadMaps = ->
     file.readDirectory path, (err, contents) ->
       load = (entry, done) ->
-        if entry.isFile
+        if entry.isFile and entry.name isnt '.DS_Store'
           entry.file (file) ->
             loadMap file, done
           , (err) ->

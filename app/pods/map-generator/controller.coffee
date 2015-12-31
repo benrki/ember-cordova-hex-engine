@@ -19,22 +19,21 @@ MapGeneratorController = Ember.Controller.extend
       randInterval = (max, min) ->
         Math.ceil Math.random() * (max - min) + min
 
-      console.log "Generating map of size: #{@size.size}"
-      for x in [0...@size.size]
-        for y in [0...@size.size]
-          for z in [0...@size.size]
-            data.push
-              position: { x, y, z }
-              resources:
-                hexon: randInterval 0, 10
+      console.log "Generating map of size: #{Math.pow(@size.size * 2, 2)}"
+      for x in [-@size.size...@size.size]
+        for y in [-@size.size...@size.size]
+          data.push
+            position: { x, y }
+            resources:
+              hexon: randInterval 0, 10
 
       map = @store.createRecord 'map',
         hexes: data
         name:  new Date().toISOString()
-        size:  @size.size
+        size:  data.length
 
       console.log "file", file
       file.writeFile "#{path}/#{map.get 'name'}", JSON.stringify(data), (fw) ->
-        console.log "map generated", map.serialize().data.attributes, fw
+        console.log "map generated", map.serialize().data.attributes, fw, data
 
 `export default MapGeneratorController`
