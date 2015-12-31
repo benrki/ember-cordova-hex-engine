@@ -6,11 +6,16 @@ import config from '../config/environment';
 fileSystem  = null
 fsReady     = false
 deviceReady = false
+rootPath    = null
 
 onDeviceReady = ->
   if cordova?.file?
-    console.info "Cordova enabled!"
     deviceReady = true
+    platform    = window.device.platform
+
+    console.info "Cordova enabled!"
+    console.info "Running on #{platform}"
+
     checkFileSystemReady (err, fs) ->
       do createDefaultDirectories unless err?
   else
@@ -29,9 +34,22 @@ requestFileSystem = (done) ->
   if deviceReady and not fsReady
     requestFS window.PERSISTENT, 0, (fs) ->
       console.info "FileSystem ready", fs
+      console.info "Cordova not running" unless deviceReady
+
+      # path =
+      #   if device.platform is 'Android'
+      #     cordova.file.dataDirectory
+      #   else
+      #     cordova.file.documentsDirectory
+
+      # resolveLocalFileSystemURL path, (localFS) ->
+      #   window.fileSystem = fileSystem = localFS
+
       window.fileSystem = fileSystem = fs
       fsReady           = true
-      console.info "Cordova not running" unless deviceReady
+
+      rootPath          = fileSystem.root.toURL()
+
       done null
     , (err) ->
       fsReady = false
@@ -49,7 +67,11 @@ checkFileSystemReady = (done) ->
 
 getDirectory = (path, options, done) ->
   dir = new DirectoryEntry null, null, fileSystem
-  dir.getDirectory path, options, ((dir) -> done(null, dir)), (err) -> done(err)
+  dir.getDirectory path, options, (dir) ->
+    console.log "created dir", dir
+    done null, dir
+  , (err) ->
+    done err
 
 checkDirectoryExists = (path, done) ->
   getDirectory path, {}, done
@@ -69,12 +91,22 @@ createDirectories = (path, done) ->
 
   async.eachSeries dirs, createDirectory, done
 
-writeFile = (path, data, done) ->
+writeFile = (name, path, data, done) ->
   checkFileSystemReady ->
-    path       = cordova.file.documentsDirectory + path
-    fileWriter = new FileWriter path
-    fileWriter.write data
-    done fileWriter
+    onSuccess = (n) -> (args...) -> n null, args...
+    onError   = (n) -> (err)     -> n err
+
+    async.waterfall [
+      (n) ->
+        dir = rootPath + path
+        resolveLocalFileSystemURL dir, onSuccess(n), onError(n)
+      (dirEntry, n) ->
+        dirEntry.getFile name, { create: true }, onSuccess(n), onError(n)
+      (fileEntry, n) ->
+        fileEntry.createWriter (fw) ->
+          fw.write data
+          n fw.error, fw
+    ], done
 
 createDefaultDirectories = ->
   async.each config.defaults.folders, (folder, done) ->
@@ -87,7 +119,8 @@ createDefaultDirectories = ->
 
 readDirectory = (path, done) ->
   checkFileSystemReady ->
-    dir = new DirectoryReader cordova.file.documentsDirectory + path
+    console.log "reading dir", rootPath + path
+    dir = new DirectoryReader rootPath + path
 
     dir.readEntries (res) ->
       done null, res

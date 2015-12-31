@@ -1,0 +1,7 @@
+<h3>Maps</h3>
+
+{{#each maps key=@index as |map|}}
+  <div {{action "clickMap" map}}>
+    Name: {{map.name}} Size: {{map.size}}
+  </div>
+{{/each}}

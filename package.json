@@ -40,6 +40,7 @@
     "ember-data": "^2.2.1",
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^1.0.4",
+    "ember-gestures": "0.3.3",
     "ember-paper": "0.2.10",
     "ember-resolver": "^2.0.3"
   }

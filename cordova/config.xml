@@ -4,8 +4,8 @@
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="benjaminrki@gmail.com" href="benrki.github.io">
+        Benjamin Ki
     </author>
     <content src="index.html" />
     <plugin name="cordova-plugin-whitelist" spec="1" />
@@ -16,6 +16,9 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <allow-navigation href="http://*/*" />
+    <allow-navigation href="http://10.0.2.2:4200/*" />
+    <allow-navigation href="http://localhost:4200/*" />
     <platform name="android">
         <allow-intent href="market:*" />
     </platform>
@@ -24,4 +27,5 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <preference name="DisallowOverscroll" value="true" />
+    <preference name="AndroidPersistentFileLocation" value="Internal" />
 </widget>

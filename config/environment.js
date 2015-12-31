@@ -25,9 +25,11 @@ module.exports = function(environment) {
     cordova: {
       rebuildOnChange: false,
       emulate: false,
+      // Change/remove if not Android
+      emberUrl: 'http://10.0.2.2:4200',
       liveReload: {
         enabled: true,
-        platform: 'ios'
+        platform: 'android'
       }
     },
 

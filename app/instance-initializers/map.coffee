@@ -15,7 +15,7 @@ initialize = (appInstance) ->
       console.info 'loading map', file.name
       hexes = JSON.parse evt.target.result
       store.createRecord 'map',
-        name:  file.name
+        name:  decodeURIComponent file.name
         hexes: hexes
         size:  hexes.length
       do done

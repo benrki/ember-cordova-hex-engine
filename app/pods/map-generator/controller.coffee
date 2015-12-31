@@ -10,7 +10,7 @@ path     = defaults.path
 
 MapGeneratorController = Ember.Controller.extend
   sizes: sizes
-  size:  sizes[0]
+  size:  sizes[4]
 
   actions:
     generateMap: (e) ->
@@ -32,8 +32,13 @@ MapGeneratorController = Ember.Controller.extend
         name:  new Date().toISOString()
         size:  data.length
 
-      console.log "file", file
-      file.writeFile "#{path}/#{map.get 'name'}", JSON.stringify(data), (fw) ->
-        console.log "map generated", map.serialize().data.attributes, fw, data
+      file.writeFile encodeURIComponent(map.get('name')), path,
+      JSON.stringify(data), (err, fw) ->
+        if err?
+          console.error 'Error writing save to file', err
+        else
+          console.log "Successfully generated map",
+            map.serialize().data.attributes,
+            fw.localURL
 
 `export default MapGeneratorController`
