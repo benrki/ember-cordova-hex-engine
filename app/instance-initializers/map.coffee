@@ -19,9 +19,12 @@ initialize = (appInstance) ->
       hexes    = JSON.parse evt.target.result
 
       store.createRecord 'map',
-        name:  name
-        hexes: hexes
-        size:  hexes.length
+        name:      name
+        hexes:     hexes
+        size:      hexes.length
+        isDefault: false
+        fileName:  file.name
+
       do done
 
     reader.readAsText(file)

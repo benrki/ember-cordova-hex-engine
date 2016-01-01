@@ -4,4 +4,11 @@
   <div {{action "clickMap" map}}>
     Name: {{map.name}} Size: {{map.size}}
   </div>
+  {{#unless map.isDefault}}
+    <div>
+        {{#paper-button warn=true action="clickRemoveMap" param=map}}
+          Delete
+        {{/paper-button}}
+    </div>
+  {{/unless}}
 {{/each}}

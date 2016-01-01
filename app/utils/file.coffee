@@ -70,6 +70,7 @@ checkFileSystemReady = (done) ->
 
 getDirectory = (path, options, done) ->
   dir = new DirectoryEntry null, null, fileSystem
+
   dir.getDirectory path, options, (dir) ->
     done null, dir
   , (err) ->
@@ -93,7 +94,7 @@ createDirectories = (path, done) ->
 
   async.eachSeries dirs, createDirectory, done
 
-writeFile = (name, path, data, done) ->
+getFile = (name, path, done) ->
   checkFileSystemReady ->
     async.waterfall [
       (n) ->
@@ -101,11 +102,18 @@ writeFile = (name, path, data, done) ->
         resolveLocalFileSystemURL dir, onSuccess(n), onError(n)
       (dirEntry, n) ->
         dirEntry.getFile name, { create: true }, onSuccess(n), onError(n)
-      (fileEntry, n) ->
-        fileEntry.createWriter (fw) ->
-          fw.write data
-          n fw.error, fw
     ], done
+
+writeFile = (name, path, data, done) ->
+  getFile name, path, (err, fileEntry) ->
+    fileEntry.createWriter (fw) ->
+      fw.write data
+      done fw.error, fw
+    , onError(done)
+
+removeFile = (name, path, done) ->
+  getFile name, path, (err, fileEntry) ->
+    fileEntry.remove done, onError(done)
 
 createDefaultDirectories = ->
   async.each config.defaults.folders, (folder, done) ->
@@ -130,6 +138,7 @@ file = {
   checkDirectoryExists
   createDirectory
   writeFile
+  removeFile
   readDirectory
 }
 

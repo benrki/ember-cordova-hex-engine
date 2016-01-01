@@ -26,12 +26,15 @@ MapGeneratorController = Ember.Controller.extend
             resources:
               hexon: randInterval 0, 10
 
-      map = @store.createRecord 'map',
-        hexes: data
-        name:  new Date().toISOString()
-        size:  data.length
+      mapName = new Date().toISOString()
+      fileName = encodeURIComponent(mapName) + defaults.fileType
 
-      fileName = encodeURIComponent(map.get('name')) + defaults.fileType
+      map = @store.createRecord 'map',
+        hexes:     data
+        name:      mapName
+        size:      data.length
+        isDefault: false
+        fileName:  fileName
 
       file.writeFile fileName, defaults.path, JSON.stringify(data), (err, fw) ->
         if err?

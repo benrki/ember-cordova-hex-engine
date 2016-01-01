@@ -1,6 +1,5 @@
 `import Ember from 'ember'`
 
-HexMapComponent = Ember.Component.extend
-  hexes: null
+HexMapComponent = Ember.Component.extend()
 
 `export default HexMapComponent`

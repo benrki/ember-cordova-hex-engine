@@ -1,5 +1,15 @@
 <h1>Map Screen</h1>
 
-{{map-selector maps=model clickMap=(action 'clickMap')}}
+{{#unless loading}}
+  {{map-selector
+    maps=model
+    clickMap=(action 'clickMap')
+    clickRemoveMap=(action 'clickRemoveMap')
+  }}
+{{else}}
+  <h3>Loading map</h3>
+{{/unless}}
 
-{{hex-map}}
+{{#unless loading}}
+  {{hex-map model=map}}
+{{/unless}}
