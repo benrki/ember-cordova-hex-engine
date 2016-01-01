@@ -7,7 +7,9 @@ module.exports = {
       { name: "Medium", size: 50 },
       { name: "Small", size: 25 }
     ],
-    path: "maps"
+    size:     { name: "Small", size: 25 },
+    path:     "maps",
+    fileType: ".hexmap"
   },
   folders: [
     "maps/default",

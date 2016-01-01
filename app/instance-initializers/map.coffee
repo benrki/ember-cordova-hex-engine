@@ -4,18 +4,22 @@ import config from '../config/environment';
 `
 
 defaults = config.defaults.map
-path     = defaults.path
 
 initialize = (appInstance) ->
   store = appInstance.lookup 'service:store'
+
   loadMap = (file, done) ->
     reader = new FileReader()
 
     reader.onloadend = (evt) ->
-      console.info 'loading map', file.name
-      hexes = JSON.parse evt.target.result
+      console.info 'Loading map', file.name
+
+      fullName = decodeURIComponent file.name
+      name     = fullName.substr 0, fullName.length - defaults.fileType.length
+      hexes    = JSON.parse evt.target.result
+
       store.createRecord 'map',
-        name:  decodeURIComponent file.name
+        name:  name
         hexes: hexes
         size:  hexes.length
       do done
@@ -23,18 +27,29 @@ initialize = (appInstance) ->
     reader.readAsText(file)
 
   loadMaps = ->
-    file.readDirectory path, (err, contents) ->
-      load = (entry, done) ->
-        if entry.isFile and entry.name isnt '.DS_Store'
-          entry.file (file) ->
-            loadMap file, done
-          , (err) ->
-            console.error "Failed to load map", err
-            done err
-        else
-          do done
+    file.readDirectory defaults.path, (err, dirContents) ->
+      if err?
+        console.error "Error reading maps directory", err
+        return err
 
-      async.each contents, load, (err) -> console.info "Loaded maps" unless err?
+      nameEndsWith = (name, substr) ->
+        name.indexOf(substr) is name.length - substr.length
+
+      isMapFile = (entry) ->
+        entry.isFile and nameEndsWith entry.name, defaults.fileType
+
+      load = (entry, done) ->
+        entry.file (file) ->
+          loadMap file, done
+        , (err) ->
+          console.error "Failed to load file", entry, err
+          done err
+
+      mapsToLoad = _.filter dirContents, isMapFile
+
+      async.each mapsToLoad, load, (err) ->
+        return console.error "Error loading map(s)", err if err?
+        console.info "Loaded #{mapsToLoad.length} map(s)"
 
   loadMaps()
 

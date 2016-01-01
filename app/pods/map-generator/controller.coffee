@@ -5,12 +5,10 @@ import file from '../../utils/file'
 `
 
 defaults = config.defaults.map
-sizes    = defaults.sizes
-path     = defaults.path
 
 MapGeneratorController = Ember.Controller.extend
-  sizes: sizes
-  size:  sizes[4]
+  sizes: defaults.sizes
+  size:  defaults.size
 
   actions:
     generateMap: (e) ->
@@ -20,6 +18,7 @@ MapGeneratorController = Ember.Controller.extend
         Math.ceil Math.random() * (max - min) + min
 
       console.log "Generating map of size: #{Math.pow(@size.size * 2, 2)}"
+
       for x in [-@size.size...@size.size]
         for y in [-@size.size...@size.size]
           data.push
@@ -32,8 +31,9 @@ MapGeneratorController = Ember.Controller.extend
         name:  new Date().toISOString()
         size:  data.length
 
-      file.writeFile encodeURIComponent(map.get('name')), path,
-      JSON.stringify(data), (err, fw) ->
+      fileName = encodeURIComponent(map.get('name')) + defaults.fileType
+
+      file.writeFile fileName, defaults.path, JSON.stringify(data), (err, fw) ->
         if err?
           console.error 'Error writing save to file', err
         else

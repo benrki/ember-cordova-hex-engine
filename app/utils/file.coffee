@@ -8,18 +8,21 @@ fsReady     = false
 deviceReady = false
 rootPath    = null
 
+onSuccess = (n) -> (args...) -> n null, args...
+onError   = (n) -> (err)     -> n err
+
 onDeviceReady = ->
   if cordova?.file?
     deviceReady = true
     platform    = window.device.platform
 
-    console.info "Cordova enabled!"
+    console.info "Cordova enabled"
     console.info "Running on #{platform}"
 
     checkFileSystemReady (err, fs) ->
       do createDefaultDirectories unless err?
   else
-    console.warn "Cordova disabled!"
+    console.warn "Cordova disabled"
 
 document.addEventListener "deviceready", onDeviceReady, false
 
@@ -68,7 +71,6 @@ checkFileSystemReady = (done) ->
 getDirectory = (path, options, done) ->
   dir = new DirectoryEntry null, null, fileSystem
   dir.getDirectory path, options, (dir) ->
-    console.log "created dir", dir
     done null, dir
   , (err) ->
     done err
@@ -93,9 +95,6 @@ createDirectories = (path, done) ->
 
 writeFile = (name, path, data, done) ->
   checkFileSystemReady ->
-    onSuccess = (n) -> (args...) -> n null, args...
-    onError   = (n) -> (err)     -> n err
-
     async.waterfall [
       (n) ->
         dir = rootPath + path
@@ -119,13 +118,13 @@ createDefaultDirectories = ->
 
 readDirectory = (path, done) ->
   checkFileSystemReady ->
-    console.log "reading dir", rootPath + path
-    dir = new DirectoryReader rootPath + path
-
-    dir.readEntries (res) ->
-      done null, res
-    , (err) ->
-      done err
+    async.waterfall [
+      (n) ->
+        fileSystem.root.getDirectory path, null, onSuccess(n), onError(n)
+      (dirEntry, n) ->
+        dirReader = dirEntry.createReader()
+        dirReader.readEntries onSuccess(n), onError(n)
+    ], done
 
 file = {
   checkDirectoryExists
