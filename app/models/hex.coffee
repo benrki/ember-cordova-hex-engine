@@ -1,10 +1,12 @@
 `import DS from 'ember-data'`
 
 Hex = DS.Model.extend
+  map: DS.belongsTo 'map'
+
   resources:
     hexon: DS.attr 'number'
 
-  position:
+  coordinates:
     x: DS.attr 'number'
     y: DS.attr 'number'
     z: DS.attr 'number'

@@ -13,17 +13,12 @@ initialize = (appInstance) ->
 
     reader.onloadend = (evt) ->
       console.info 'Loading map', file.name
+      mapData = JSON.parse evt.target.result
+      hexes   = mapData.hexes
+      delete mapData.hexes
 
-      fullName = decodeURIComponent file.name
-      name     = fullName.substr 0, fullName.length - defaults.fileType.length
-      hexes    = JSON.parse evt.target.result
-
-      store.createRecord 'map',
-        name:      name
-        hexes:     hexes
-        size:      hexes.length
-        isDefault: false
-        fileName:  file.name
+      map = store.createRecord 'map', mapData
+      store.createRecord 'hex', _.extend hex, { map: map } for hex in hexes
 
       do done
 

@@ -2,7 +2,7 @@
 
 {{#each maps key=@index as |map|}}
   <div {{action "clickMap" map}}>
-    Name: {{map.name}} Size: {{map.size}}
+    Name: {{map.name}} Size: {{map.hexes.length}}
   </div>
   {{#unless map.isDefault}}
     <div>

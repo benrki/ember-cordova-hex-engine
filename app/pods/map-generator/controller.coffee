@@ -1,8 +1,11 @@
 `
-import Ember from 'ember';
+import Ember  from 'ember';
 import config from '../../config/environment';
-import file from '../../utils/file'
+import file   from '../../utils/file';
+import hex    from '../../utils/hex';
 `
+
+{ ceil, random } = Math
 
 defaults = config.defaults.map
 
@@ -12,36 +15,37 @@ MapGeneratorController = Ember.Controller.extend
 
   actions:
     generateMap: (e) ->
-      data = []
+      hexes   = []
+      hexJSON = []
 
       randInterval = (max, min) ->
-        Math.ceil Math.random() * (max - min) + min
+        ceil random() * (max - min) + min
 
-      console.log "Generating map of size: #{Math.pow(@size.size * 2, 2)}"
+      console.log "Generating map of size: #{@size.size}"
 
-      for x in [-@size.size...@size.size]
-        for y in [-@size.size...@size.size]
-          data.push
-            position: { x, y }
-            resources:
-              hexon: randInterval 0, 10
-
-      mapName = new Date().toISOString()
+      mapName  = new Date().toISOString()
       fileName = encodeURIComponent(mapName) + defaults.fileType
-
       map = @store.createRecord 'map',
-        hexes:     data
         name:      mapName
-        size:      data.length
         isDefault: false
         fileName:  fileName
 
-      file.writeFile fileName, defaults.path, JSON.stringify(data), (err, fw) ->
+      for q in [0...@size.size]
+        for r in [0...@size.size]
+          hexData =
+            coordinates: { q, r }
+            resources:
+              hexon: randInterval 0, 10
+          hexJSON.push hexData
+          hexes.push @store.createRecord 'hex', hexData
+
+      map.get('hexes').pushObjects hexes
+      mapData = JSON.stringify _.extend map.toJSON(), { hexes: hexJSON }
+
+      file.writeFile fileName, defaults.path, mapData, (err, fw) ->
         if err?
           console.error 'Error writing save to file', err
         else
-          console.log "Successfully generated map",
-            map.serialize().data.attributes,
-            fw.localURL
+          console.log "Successfully generated map", map.toJSON(), fw.localURL
 
 `export default MapGeneratorController`
