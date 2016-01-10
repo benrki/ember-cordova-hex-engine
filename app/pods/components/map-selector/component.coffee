@@ -2,10 +2,7 @@
 
 MapSelectorComponent = Ember.Component.extend
   actions:
-    clickMap: (map) ->
-      @get('clickMap') map
-
-    clickRemoveMap: (map) ->
-      @get('clickRemoveMap') map
+    load:   (map) -> @sendAction 'renderMap', map
+    remove: (map) -> @sendAction 'removeMap', map
 
 `export default MapSelectorComponent`

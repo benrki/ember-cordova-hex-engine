@@ -1,7 +1,7 @@
 <svg width={{width}} height={{height}}>
   <g transform={{transform}}>
-    {{#each model.hexes key=@index as |hex|}}
-      {{hex-node model=hex size=hexSize}}
+    {{#each model.hexes key=@index as |hexModel|}}
+      {{hex-node model=hexModel size=hexSize}}
     {{/each}}
   </g>
 </svg>

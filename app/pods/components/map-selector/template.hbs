@@ -1,12 +1,12 @@
 <h3>Maps</h3>
 
 {{#each maps key=@index as |map|}}
-  <div {{action "clickMap" map}}>
+  <div {{action "load" map}}>
     Name: {{map.name}} Size: {{map.hexes.length}}
   </div>
   {{#unless map.isDefault}}
     <div>
-        {{#paper-button warn=true action="clickRemoveMap" param=map}}
+        {{#paper-button warn=true action="remove" param=map}}
           Delete
         {{/paper-button}}
     </div>

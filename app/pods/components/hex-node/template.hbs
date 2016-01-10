@@ -1,4 +1,11 @@
-<polygon points={{points}} transform={{rotation}}></polygon>
-<text>
-  <tspan fill={{fill}}>{{model.resources.hexon}}</tspan>
-</text>
+<g transform={{hexTransform}} {{action "clickNode" model}}>
+  <polygon
+    points={{points}}
+    transform={{rotation}}
+    fill={{color}}
+  >
+  </polygon>
+  <text>
+    <tspan fill={{textColor}}>{{model.resources.hexon}}</tspan>
+  </text>
+</g>

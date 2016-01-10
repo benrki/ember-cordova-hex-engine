@@ -4,9 +4,9 @@
 
 HexNodeComponent = Ember.Component.extend
   tagName:           "g"
-  attributeBindings: ["hexTransform:transform"]
   rotation:          "rotate(0)"
-  fill:              "white"
+  color:             "black"
+  textColor:         "white"
 
   hexTransform: Ember.computed ->
     "translate(#{@get 'offsetX'},#{@get 'offsetY'})"
@@ -42,5 +42,9 @@ HexNodeComponent = Ember.Component.extend
     angleRadians = PI / 180 * angleDegrees
     q: center.q + size * cos angleRadians
     r: center.r + size * sin angleRadians
+
+  actions:
+    clickNode: (hex) ->
+      @set 'color', 'orange'
 
 `export default HexNodeComponent`
