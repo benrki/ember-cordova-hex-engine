@@ -23,13 +23,13 @@ MapController = Ember.Controller.extend
           @set 'loading', false
 
     removeMap: (map) ->
-        console.log "Removing map", map
-        file.removeFile map.get('fileName'), defaults.path, (res) =>
-          if res? and res isnt 'OK'
-            console.error "Error removing map", err
-          else
-            @store.deleteRecord map
-            @set 'map', null
-            console.log "Finished removing map"
+      console.log "Removing map", map
+      file.removeFile map.get('fileName'), defaults.path, (res) =>
+        if res? and res isnt 'OK'
+          console.error "Error removing map", err
+        else
+          @store.deleteRecord map
+          @set 'map', null
+          console.log "Finished removing map"
 
 `export default MapController`
