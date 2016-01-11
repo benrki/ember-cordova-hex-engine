@@ -1,15 +1,14 @@
-<h1>Map Screen</h1>
-
 {{#if loading}}
   <h3>Loading map</h3>
 {{else}}
-  {{map-selector
-    maps=model
-    renderMap='renderMap'
-    removeMap='removeMap'
-  }}
   {{#if showMap}}
     {{hex-map model=map}}
+  {{else}}
+    {{map-selector
+      maps=model
+      renderMap='renderMap'
+      removeMap='removeMap'
+    }}
   {{/if}}
 {{/if}}
 

@@ -3,9 +3,9 @@
 { PI, cos, sin, sqrt } = Math
 
 HexNodeComponent = Ember.Component.extend
-  tagName:           "g"
-  rotation:          "rotate(0)"
-  textColor:         "white"
+  tagName:   "g"
+  rotation:  "rotate(0)"
+  textColor: "white"
 
   color: Ember.computed 'isSelected', ->
     if @get('isSelected') then "orange" else "black"

@@ -1,11 +1,16 @@
-<div class='container'>
-  <div class='col-sm-12'>
-    <h1 id="title">Hex title</h1>
+{{#if showNav}}
+  <div class="container">
     {{#link-to 'index'}}index{{/link-to}}
     {{#link-to 'map'}}map{{/link-to}}
-    {{#link-to 'user'}}user{{/link-to}}
     {{#link-to 'map-generator'}}map generator{{/link-to}}
 
     {{outlet}}
   </div>
-</div>
+{{else}}
+  <div class="navbar navbar-default navbar-fixed-top">
+    {{#paper-button raised=true action="goBack"}}Back{{/paper-button}}
+  </div>
+  <div style="padding-top: 50px;">
+  {{outlet}}
+  </div>
+{{/if}}

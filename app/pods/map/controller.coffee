@@ -12,8 +12,9 @@ MapController = Ember.Controller.extend
 
   actions:
     renderMap: (map) ->
-      @set 'loading', true
-      @set 'showMap', false
+      @set 'loading',    true
+      @set 'showMap',    false
+      @send 'toggleNav', false
       # Guarantee loader show before map is rendered
       Ember.run.next =>
         @set 'map', map
