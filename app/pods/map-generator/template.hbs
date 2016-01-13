@@ -1,4 +1,4 @@
-<h1>Generate a map</h1>
+<h1 class="text-center">Map Generator</h1>
 
 {{#paper-select placeholder="Size" model=size value=size.name}}
   {{#each sizes as |size|}}
@@ -8,4 +8,6 @@
   {{/each}}
 {{/paper-select}}
 
-{{#paper-button raised=true action="generateMap"}}generate{{/paper-button}}
+<div class="text-center">
+  {{#paper-button raised=true action="generateMap"}}generate{{/paper-button}}
+</div>

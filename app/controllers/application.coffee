@@ -8,4 +8,6 @@ ApplicationController = Ember.Controller.extend
       @set 'showNav', true
       @transitionToRoute 'index'
 
+    goToRoute: (route) -> @transitionToRoute route
+
 `export default ApplicationController`

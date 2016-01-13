@@ -1,9 +1,12 @@
-`import Ember from 'ember'`
+`
+import Ember from 'ember';
+import config from '../../../config/environment';
+`
 
 { sqrt } = Math
 
 HexMapComponent = Ember.Component.extend
-  hexSize:   15
+  hexSize:   config.defaults.hex.size
   hexWidth:  Ember.computed 'hexSize',   -> 2 * @get 'hexSize'
   hexHeight: Ember.computed 'hexSize',   -> sqrt(3) * @get('hexSize')
   offsetX:   Ember.computed 'hexWidth',  -> @get('hexWidth') / 2

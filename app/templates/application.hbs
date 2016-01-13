@@ -1,8 +1,14 @@
 {{#if showNav}}
   <div class="container">
-    {{#link-to 'index'}}index{{/link-to}}
-    {{#link-to 'map'}}map{{/link-to}}
-    {{#link-to 'map-generator'}}map generator{{/link-to}}
+    {{#paper-button action="goToRoute" param="map"}}
+      Play
+    {{/paper-button}}
+    {{#paper-button action="goToRoute" param="map-generator"}}
+      Generate
+    {{/paper-button}}
+    {{#paper-button action="goToRoute" param="settings"}}
+      Settings
+    {{/paper-button}}
 
     {{outlet}}
   </div>

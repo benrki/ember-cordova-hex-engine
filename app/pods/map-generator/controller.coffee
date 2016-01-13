@@ -23,8 +23,9 @@ MapGeneratorController = Ember.Controller.extend
 
       console.log "Generating map of size: #{@size.size}"
 
-      mapName  = new Date().toISOString()
+      mapName  = new Date().toString()
       fileName = encodeURIComponent(mapName) + defaults.fileType
+
       map = @store.createRecord 'map',
         name:      mapName
         isDefault: false
