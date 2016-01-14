@@ -6,12 +6,12 @@ module('Unit | Instance Initializer | map', {
   beforeEach: function() {
     Ember.run(function() {
       this.application = Ember.Application.create();
-      this.appInstance = application.buildInstance();
+      this.appInstance = this.application.buildInstance();
     });
   },
   afterEach: function() {
     Ember.run(this.appInstance, 'destroy');
-    destroyApp(this.application);
+    this.application.destroyApp(this.application);
   }
 });
 
