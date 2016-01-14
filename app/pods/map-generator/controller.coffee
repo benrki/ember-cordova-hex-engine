@@ -1,8 +1,9 @@
 `
-import Ember  from 'ember';
-import config from '../../config/environment';
-import file   from '../../utils/file';
-import hex    from '../../utils/hex';
+import Ember   from 'ember';
+import config  from '../../config/environment';
+import file    from '../../utils/file';
+import hex     from '../../utils/hex';
+import shortid from 'npm:shortid';
 `
 
 { ceil, random } = Math
@@ -27,6 +28,7 @@ MapGeneratorController = Ember.Controller.extend
       fileName = encodeURIComponent(mapName) + defaults.fileType
 
       map = @store.createRecord 'map',
+        id: shortid.generate()
         name:      mapName
         isDefault: false
         fileName:  fileName

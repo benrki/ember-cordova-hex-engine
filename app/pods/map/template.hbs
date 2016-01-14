@@ -1,14 +1,5 @@
-{{#if loading}}
-  <h1 class="text-center">Loading</h1>
-{{else}}
-  {{#if showMap}}
-    {{hex-map model=map}}
-  {{else}}
-    {{map-selector
-      maps=model
-      renderMap='renderMap'
-      removeMap='removeMap'
-    }}
-  {{/if}}
-{{/if}}
-
+{{map-selector
+  maps=model
+  loadMap='goToMap'
+  removeMap='removeMap'
+}}

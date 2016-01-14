@@ -8,5 +8,7 @@ Router.map ->
   @route 'map'
   @route 'map-generator'
   @route 'settings'
+  @route 'player'
+  @route 'play', { path: '/play/:id' }
 
 `export default Router;`
