@@ -49,7 +49,7 @@ initialize = (appInstance) ->
         return console.error "Error loading map(s)", err if err?
         console.info "Loaded #{mapsToLoad.length} map(s)"
 
-  loadMaps()
+  do loadMaps
 
 MapInitializer =
   name: 'map'

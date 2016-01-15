@@ -17,6 +17,9 @@ PlayRoute = Ember.Route.extend
         @set 'loading', false
 
   afterModel: (model, transition) ->
-    @renderMap model
+    if model?
+      @renderMap model
+    else
+      @transitionTo 'index'
 
 `export default PlayRoute`

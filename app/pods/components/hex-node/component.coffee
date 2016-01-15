@@ -1,11 +1,16 @@
-`import Ember from 'ember'`
+`
+import Ember from 'ember';
+import RecognizerMixin from 'ember-gestures/mixins/recognizers';
+
+`
 
 { PI, cos, sin, sqrt } = Math
 
-HexNodeComponent = Ember.Component.extend
+HexNodeComponent = Ember.Component.extend RecognizerMixin,
   tagName:   "g"
   rotation:  "rotate(0)"
   textColor: "white"
+  recognizers: 'tap'
 
   color: Ember.computed 'isSelected', ->
     if @get('isSelected') then "orange" else "black"
@@ -49,7 +54,6 @@ HexNodeComponent = Ember.Component.extend
 
   actions:
     clickNode: (hex) ->
-      console.log "click node"
       @set 'selected', hex
 
 `export default HexNodeComponent`
