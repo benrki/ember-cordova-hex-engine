@@ -1,7 +1,6 @@
 `
 import Ember   from 'ember';
 import config  from '../../config/environment';
-import file    from '../../utils/file';
 import hex     from '../../utils/hex';
 import shortid from 'npm:shortid';
 `
@@ -13,6 +12,7 @@ defaults = config.defaults.map
 MapGeneratorController = Ember.Controller.extend
   sizes: defaults.sizes
   size:  defaults.size
+  file:  Ember.inject.service 'file'
 
   actions:
     generateMap: (e) ->
@@ -45,7 +45,7 @@ MapGeneratorController = Ember.Controller.extend
       map.get('hexes').pushObjects hexes
       mapData = JSON.stringify _.extend map.toJSON(), { hexes: hexJSON }
 
-      file.writeFile fileName, defaults.path, mapData, (err, fw) ->
+      @get('file').writeFile fileName, defaults.path, mapData, (err, fw) ->
         if err?
           console.error 'Error writing save to file', err
         else

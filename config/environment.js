@@ -26,10 +26,10 @@ module.exports = function(environment) {
       rebuildOnChange: false,
       emulate: false,
       // Change/remove if not Android
-      emberUrl: 'http://10.0.2.2:4200',
+      // emberUrl: 'http://10.0.2.2:4200',
       liveReload: {
         enabled: true,
-        platform: 'android'
+        platform: "ios"
       }
     },
 

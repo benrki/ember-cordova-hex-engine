@@ -1,5 +1,4 @@
 `
-import file from '../utils/file';
 import config from '../config/environment';
 `
 
@@ -7,6 +6,7 @@ defaults = config.defaults.map
 
 initialize = (appInstance) ->
   store = appInstance.lookup 'service:store'
+  file  = appInstance.lookup 'service:file'
 
   loadMap = (file, done) ->
     reader = new FileReader()

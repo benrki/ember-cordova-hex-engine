@@ -49,6 +49,7 @@ HexNodeComponent = Ember.Component.extend
 
   actions:
     clickNode: (hex) ->
+      console.log "click node"
       @set 'selected', hex
 
 `export default HexNodeComponent`

@@ -1,6 +1,6 @@
 `
 import Ember from 'ember';
-import config from '../config/environment';
+import config from '../../config/environment';
 `
 
 fileSystem  = null
@@ -134,7 +134,7 @@ readDirectory = (path, done) ->
         dirReader.readEntries onSuccess(n), onError(n)
     ], done
 
-file = {
+FileService = Ember.Service.extend {
   checkDirectoryExists
   createDirectory
   writeFile
@@ -142,4 +142,4 @@ file = {
   readDirectory
 }
 
-`export default file`
+`export default FileService`

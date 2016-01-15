@@ -1,11 +1,11 @@
-module.exports = {
+config = {
   map: {
     sizes: [
-      { name: "Giga",   size: 100 },
-      { name: "Medium", size: 50 },
-      { name: "Small",  size: 25 }
+      { name: "Giga",   size: 50 },
+      { name: "Medium", size: 25  },
+      { name: "Small",  size: 10  }
     ],
-    size:     { name: "Small", size: 25 },
+    size:     { name: "Small", size: 10 },
     path:     "maps",
     fileType: ".hexmap"
   },
@@ -16,4 +16,6 @@ module.exports = {
   hex: {
     size: 25
   }
-}
+};
+
+module.exports = config
