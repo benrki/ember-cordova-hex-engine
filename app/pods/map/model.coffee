@@ -5,5 +5,6 @@ Map = DS.Model.extend
   hexes:      DS.hasMany 'hex'
   isDefault:  DS.attr 'boolean'
   fileName:   DS.attr 'string'
+  players:    DS.hasMany 'player'
 
 `export default Map`

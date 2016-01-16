@@ -7,13 +7,20 @@ import RecognizerMixin from 'ember-gestures/mixins/recognizers';
 { PI, cos, sin, sqrt } = Math
 
 HexNodeComponent = Ember.Component.extend RecognizerMixin,
-  tagName:   "g"
-  rotation:  "rotate(0)"
-  textColor: "white"
-  recognizers: 'tap'
+  tagName:     "g"
+  rotation:    "rotate(0)"
+  textColor:   "white"
+  recognizers: "tap"
 
-  color: Ember.computed 'isSelected', ->
-    if @get('isSelected') then "orange" else "black"
+  color: Ember.computed 'isSelected', 'ownedBy', ->
+    selected = @get 'isSelected'
+    owner    = @get 'model.ownedBy'
+    if selected
+      "orange"
+    else if owner?
+      owner.get 'color'
+    else
+      "black"
 
   isSelected: Ember.computed 'selected', -> @get('selected') is @get('model')
 

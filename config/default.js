@@ -1,7 +1,7 @@
 config = {
   map: {
     sizes: [
-      { name: "Giga",   size: 50 },
+      { name: "Giga",   size: 50  },
       { name: "Medium", size: 25  },
       { name: "Small",  size: 10  }
     ],
@@ -15,7 +15,12 @@ config = {
   ],
   hex: {
     size: 25
-  }
+  },
+  players: [
+    { color: "red"   },
+    { color: "green" },
+    { color: "blue"  }
+  ]
 };
 
 module.exports = config
