@@ -16,12 +16,13 @@ PlayRoute = Ember.Route.extend
     if model?
       @initialize(model) (model) =>
         @renderMap model
+        @playGame model
     else
-      @transitionTo 'index'
+      @transitionTo 'map'
 
   initialize: (model) -> (done) =>
     @createPlayers model
-    do done
+    done model
 
   getRandomHexes: (model) -> (num) ->
     hexes       = model.get('hexes')
@@ -54,7 +55,6 @@ PlayRoute = Ember.Route.extend
     randCoords      = @getRandomHexes(model) players.length
     _.map randCoords, (hex, i) ->
       player = players[i]
-      console.log "player", player.get('maps')
       player.get('maps').pushObject model
       hex.set 'ownedBy', player
 
@@ -67,5 +67,52 @@ PlayRoute = Ember.Route.extend
       # Wait until map is finished rendered before dismissing loader
       Ember.run.next =>
         @set 'loading', false
+
+  setMode: (mode) ->
+    @modelFor('play').set 'mode', mode
+
+  playHuman: ->
+    @setMode "reinforce"
+
+  attackMode: ->
+    @setMode "attack"
+
+  playAI: (player, done) ->
+    console.log "play AI", player.get 'name'
+    # Reinforcements
+    # Attack
+    do done
+
+  playTurn: (player) ->
+    model = @modelFor 'play'
+
+    if player.get 'isAI'
+      @playAI player, =>
+        @playTurn model.advanceTurn()
+    else
+      @controller.set 'showControls', true
+      do @playHuman
+
+  playGame: (model) ->
+    activePlayer = model.get 'activePlayer'
+    do @playHuman
+
+  endGame: ->
+    @transitionTo 'map'
+
+  endTurn: ->
+    model = @modelFor 'play'
+
+    if model.get 'hasWinner'
+      do @endGame
+    else
+      if model.get('activePlayer').get 'isPlayer'
+        @controller.set 'showControls', false
+      @playTurn model.advanceTurn()
+
+  actions:
+    goBack:       -> @send 'returnToIndex'
+    endTurn:      -> do @endTurn
+    endReinforce: -> do @attackMode
 
 `export default PlayRoute`

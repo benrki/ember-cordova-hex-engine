@@ -17,7 +17,7 @@ config = {
     size: 25
   },
   players: [
-    { color: "red"   },
+    { color: "red", isPlayer: true },
     { color: "green" },
     { color: "blue"  }
   ]

@@ -1,5 +1,26 @@
 {{#if loading}}
   <h1 class="text-center">Loading</h1>
 {{else}}
-  {{hex-map model=model}}
+  {{#if showControls}}
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="pull-left">
+        {{#paper-button raised=true action="goBack"}}Back{{/paper-button}}
+      </div>
+      {{model.mode}}
+      <div class="pull-right">
+        {{#if isReinforceMode}}
+          {{#paper-button raised=true action="endReinforce"}}
+            End Reinforce
+          {{/paper-button}}
+        {{else}}
+          {{#paper-button raised=true action="endTurn"}}
+            End Attack
+          {{/paper-button}}
+        {{/if}}
+      </div>
+    </div>
+  {{/if}}
+  <div style="padding-top: 50px;">
+    {{hex-map model=model}}
+  </div>
 {{/if}}

@@ -6,4 +6,9 @@ ApplicationRoute = Ember.Route.extend
       @controller.set 'showNav', show
       false
 
+    returnToIndex: ->
+      @controller.set 'showNav', true
+      @transitionTo   'index'
+      false
+
 `export default ApplicationRoute`
