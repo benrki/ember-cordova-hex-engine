@@ -16,15 +16,14 @@ Hex = DS.Model.extend
 
   selectable: Ember.computed 'map.mode', 'blocked', ->
     map = @get 'map'
-
-    if @get 'blocked'
-      false
-    else if map.get('isReinforceMode')
-      map.get('activePlayer') is @get('ownedBy')
-    else if map.get('isAttackMode')
-      map.get('activePlayer') isnt @get('ownedBy')
-    else
-      false
+    return false if @get 'blocked'
+    @get('ownedBy').then (owner) ->
+      if map.get('isReinforceMode')
+        map.get('activePlayer') is owner
+      else if map.get('isAttackMode')
+        map.get('activePlayer') isnt owner
+      else
+        false
 
 
 `export default Hex`

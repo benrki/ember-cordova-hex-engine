@@ -12,7 +12,7 @@ HexNodeComponent = Ember.Component.extend
   textColor:   "white"
   attributeBindings: ['hexTransform:transform']
 
-  color: Ember.computed 'isSelected', 'ownedBy', ->
+  color: Ember.computed 'isSelected', 'model.ownedBy', ->
     selected = @get 'isSelected'
     owner    = @get 'model.ownedBy'
     if selected
@@ -22,7 +22,7 @@ HexNodeComponent = Ember.Component.extend
     else
       "black"
 
-  isSelected: Ember.computed 'model.selected', -> @get('model.selected')
+  isSelected: Ember.computed 'model.selected', -> @get('model').get('selected')
 
   horizontalDistance: Ember.computed 'width', -> 3 / 4 * @get 'width'
 
