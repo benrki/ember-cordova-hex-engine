@@ -1,11 +1,13 @@
 `
 import Ember from 'ember';
 import config from '../../../config/environment';
+import RecognizerMixin from 'ember-gestures/mixins/recognizers';
 `
 
 { sqrt } = Math
 
-HexMapComponent = Ember.Component.extend
+HexMapComponent = Ember.Component.extend RecognizerMixin,
+  recognizers: "tap"
   hexSize:   config.defaults.hex.size
   hexWidth:  Ember.computed 'hexSize',   -> 2 * @get 'hexSize'
   hexHeight: Ember.computed 'hexSize',   -> sqrt(3) * @get('hexSize')
@@ -24,5 +26,10 @@ HexMapComponent = Ember.Component.extend
 
   transform: Ember.computed 'hexSize', ->
     "translate(#{@get 'offsetX'},#{@get 'offsetY'})"
+
+  actions:
+    clearSelected: ->
+      model = @get 'model'
+      do model.clearSelected
 
 `export default HexMapComponent`

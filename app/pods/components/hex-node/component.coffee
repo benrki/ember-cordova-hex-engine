@@ -6,11 +6,11 @@ import RecognizerMixin from 'ember-gestures/mixins/recognizers';
 
 { PI, cos, sin, sqrt } = Math
 
-HexNodeComponent = Ember.Component.extend RecognizerMixin,
+HexNodeComponent = Ember.Component.extend
   tagName:     "g"
   rotation:    "rotate(0)"
   textColor:   "white"
-  recognizers: "tap"
+  attributeBindings: ['hexTransform:transform']
 
   color: Ember.computed 'isSelected', 'ownedBy', ->
     selected = @get 'isSelected'
@@ -22,7 +22,7 @@ HexNodeComponent = Ember.Component.extend RecognizerMixin,
     else
       "black"
 
-  isSelected: Ember.computed 'selected', -> @get('selected') is @get('model')
+  isSelected: Ember.computed 'model.selected', -> @get('model.selected')
 
   horizontalDistance: Ember.computed 'width', -> 3 / 4 * @get 'width'
 
@@ -59,8 +59,10 @@ HexNodeComponent = Ember.Component.extend RecognizerMixin,
       , ""
       .value()
 
-  actions:
-    clickNode: (hex) ->
-      @set 'selected', hex
+  tap: ->
+    @sendAction 'clear'
+    hex = @get 'model'
+    if hex.get 'selectable'
+      @get('model').set 'selected', true
 
 `export default HexNodeComponent`

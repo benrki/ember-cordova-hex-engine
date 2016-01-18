@@ -28,7 +28,7 @@ MapGeneratorController = Ember.Controller.extend
       fileName = encodeURIComponent(mapName) + defaults.fileType
 
       map = @store.createRecord 'map',
-        id: shortid.generate()
+        id:        shortid.generate()
         name:      mapName
         isDefault: false
         fileName:  fileName
