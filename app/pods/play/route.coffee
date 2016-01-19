@@ -21,8 +21,6 @@ PlayRoute = Ember.Route.extend
     else
       @transitionTo 'map'
 
-  # setupController: (controller, model) -> @playGame model
-
   initialize: (model) -> (done) =>
     @createPlayers model
     done model

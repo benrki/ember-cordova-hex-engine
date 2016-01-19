@@ -15,13 +15,16 @@ Hex = DS.Model.extend
     z: DS.attr 'number'
 
   selectable: Ember.computed 'map.mode', 'blocked', ->
-    map = @get 'map'
-    return false if @get 'blocked'
+    map     = @get 'map'
+    player  = map.get 'activePlayer'
+    blocked = @get 'blocked'
+
     @get('ownedBy').then (owner) ->
+      return false if blocked
       if map.get('isReinforceMode')
-        map.get('activePlayer') is owner
+        player is owner
       else if map.get('isAttackMode')
-        map.get('activePlayer') isnt owner
+        player isnt owner
       else
         false
 
