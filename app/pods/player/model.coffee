@@ -13,10 +13,13 @@ Player = DS.Model.extend
   # AI methods
   reinforce: ->
     name = @get('name')
-    console.log "#{name} reinforce"
+    console.log "#{name} reinforce #{@get('reinforcements')}"
 
   attack: ->
     name = @get('name')
     console.log "#{name} play"
+
+  reinforcements: Ember.computed 'hexes.[]', ->
+    @get('hexes').reduce ((total, hex) -> total + hex.get('resources.hexon')), 0
 
 `export default Player`

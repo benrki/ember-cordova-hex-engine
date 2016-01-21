@@ -10,8 +10,7 @@ PlayRoute = Ember.Route.extend
   numPlayers: 3
   loading:    false
 
-  model: ({ id }) ->
-    @store.peekRecord 'map', id
+  model: ({ id }) -> @store.peekRecord 'map', id
 
   afterModel: (model, transition) ->
     if model?
@@ -74,8 +73,8 @@ PlayRoute = Ember.Route.extend
         do done
 
   startReinforce: (model) ->
-    console.log "start player reinforce mode", model
     model.set 'mode', 'REINFORCE'
+    @controller.set 'reinforcements', model.get('player.reinforcements')
 
   startAttack: (model) ->
     model.set 'mode', 'ATTACK'
@@ -89,7 +88,7 @@ PlayRoute = Ember.Route.extend
 
   playTurn: (model) ->
     player = model.get 'activePlayer'
-    console.log "play", player.get 'name'
+    console.info "Play", player.get 'name'
     if player.get 'isAI'
       @playAI player, =>
         do model.advanceTurn
@@ -115,6 +114,7 @@ PlayRoute = Ember.Route.extend
       do model.advanceTurn
       @playTurn model
       model.set('turnsPassed', model.get('turnsPassed') + 1)
+      console.info "End of turn", model.get 'turnsPassed'
 
   actions:
     goBack:               -> @send        'returnToIndex'

@@ -9,7 +9,7 @@
       <div class="pull-right">
         {{#if model.isReinforceMode}}
           {{#paper-button raised=true action="endReinforce" param=model}}
-            End Reinforce
+            End Reinforce ({{reinforcements}})
           {{/paper-button}}
         {{else if model.isAttackMode}}
           {{#paper-button raised=true action="endTurn" param=model}}
