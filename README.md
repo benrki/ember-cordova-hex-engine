@@ -9,7 +9,7 @@ You will need the following things properly installed on your computer.
 * [Git](http://git-scm.com/)
 * [Node.js 5.4.1](http://nodejs.org/) (with NPM)
 * [Bower](http://bower.io/)
-* [Ember CLI ~2.2.0-beta.1](http://www.ember-cli.com/)
+* [Ember CLI 2.3.0-beta.1](http://www.ember-cli.com/)
 * [PhantomJS](http://phantomjs.org/)
 
 ## Installation
