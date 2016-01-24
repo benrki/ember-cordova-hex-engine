@@ -19,6 +19,6 @@ MapController = Ember.Controller.extend
         else
           @store.deleteRecord map
           @set 'map', null
-          console.log "Finished removing map"
+          console.info "Finished removing map"
 
 `export default MapController`

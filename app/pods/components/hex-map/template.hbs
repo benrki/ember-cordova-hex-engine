@@ -1,7 +1,12 @@
 <svg width={{width}} height={{height}}>
   <g transform={{transform}}>
     {{#each model.hexes key=@index as |hexModel|}}
-      {{hex-node model=hexModel size=hexSize clear=(action "clearSelected")}}
+      {{hex-node
+        model=hexModel
+        size=hexSize
+        clear=(action "clearSelected")
+        hexAction=hexAction
+      }}
     {{/each}}
   </g>
 </svg>

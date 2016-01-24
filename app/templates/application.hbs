@@ -1,17 +1,19 @@
-{{#if showNav}}
-  <div class="container">
-    {{#paper-button action="goToRoute" param="map"}}
-      Play
-    {{/paper-button}}
-    {{#paper-button action="goToRoute" param="map-generator"}}
-      Generate
-    {{/paper-button}}
-    {{#paper-button action="goToRoute" param="settings"}}
-      Settings
-    {{/paper-button}}
+<div style="padding-top: 20px;">
+  {{#if showNav}}
+    <div class="container">
+      {{#paper-button action="goToRoute" param="map"}}
+        Play
+      {{/paper-button}}
+      {{#paper-button action="goToRoute" param="map-generator"}}
+        Generate
+      {{/paper-button}}
+      {{#paper-button action="goToRoute" param="settings"}}
+        Settings
+      {{/paper-button}}
 
+      {{outlet}}
+    </div>
+  {{else}}
     {{outlet}}
-  </div>
-{{else}}
-  {{outlet}}
-{{/if}}
+  {{/if}}
+</div>

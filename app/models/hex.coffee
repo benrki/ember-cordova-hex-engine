@@ -28,5 +28,6 @@ Hex = DS.Model.extend
       else
         false
 
+  select: -> @get('selectable').then (s) => @set 'selected', s
 
 `export default Hex`

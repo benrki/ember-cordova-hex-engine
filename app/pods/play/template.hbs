@@ -19,7 +19,7 @@
       </div>
     </div>
   {{/if}}
-  <div style="padding-top: 50px;">
-    {{hex-map model=model}}
+  <div class="{{if showControls "nav-padding"}}">
+    {{hex-map model=model hexAction=(action "hexAction")}}
   </div>
 {{/if}}

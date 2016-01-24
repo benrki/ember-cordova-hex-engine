@@ -62,7 +62,7 @@ HexNodeComponent = Ember.Component.extend
   tap: ->
     @sendAction 'clear'
     hex = @get 'model'
-    hex.get('selectable').then (selectable) =>
-      @get('model').set 'selected', true if selectable
+    hex.set 'selected', true
+    @sendAction 'hexAction', hex
 
 `export default HexNodeComponent`

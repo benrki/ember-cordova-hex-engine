@@ -22,7 +22,7 @@ MapGeneratorController = Ember.Controller.extend
       randInterval = (max, min) ->
         ceil random() * (max - min) + min
 
-      console.log "Generating map of size: #{@size.size}"
+      console.info "Generating map of size: #{@size.size}"
 
       mapName  = new Date().toString()
       fileName = encodeURIComponent(mapName) + defaults.fileType
@@ -49,6 +49,6 @@ MapGeneratorController = Ember.Controller.extend
         if err?
           console.error 'Error writing save to file', err
         else
-          console.log "Successfully generated map", map.toJSON(), fw.localURL
+          console.info "Successfully generated map", map.toJSON(), fw.localURL
 
 `export default MapGeneratorController`

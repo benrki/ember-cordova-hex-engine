@@ -7,8 +7,9 @@ Map = DS.Model.extend
   isDefault:   DS.attr    'boolean'
   fileName:    DS.attr    'string'
   mode:        DS.attr    'string', defaultValue: ""
-  turnsPassed: DS.attr    'number'
+  rounds:      DS.attr    'number', defaultValue: 0
   stats:       DS.attr()
+  previousSelected: DS.attr()
 
   activePlayer:     Ember.computed 'players', -> @get('players').objectAt(0)
   nextPlayer:       Ember.computed 'players', -> @get('players').objectAt(1)
@@ -16,24 +17,32 @@ Map = DS.Model.extend
     @get('players').findBy 'isPlayer'
   isAttackMode:     Ember.computed 'mode',    -> @get('mode') is "ATTACK"
   isReinforceMode:  Ember.computed 'mode',    -> @get('mode') is "REINFORCE"
+  gameStarted:      Ember.computed.bool 'rounds'
 
   advanceTurn: ->
-    players    = @get 'players'
+    players = @get 'players'
+    hexes   = @get 'hexes'
     players.pushObject players.shiftObject()
     @get 'activePlayer'
 
-  hasWinner: Ember.computed 'hexes', ->
-    hexes = @get 'hexes'
-    player = hexes.objectAt(0).get 'ownedBy'
-    hexes.every (hex) -> hex.get('ownedBy') is player
+  hasWinner: Ember.computed 'hexes.@each.ownedBy', ->
+    player = @get('activePlayer')
+    Ember.RSVP.filter(@get('owners').toArray(), (o) -> o?).then (owners) ->
+      owners.every (o) -> o is player
 
-  blockedHexes: Ember.computed 'hexes.@each.blocked', ->
-    @get('hexes').filterBy 'blocked'
+  owners: Ember.computed.mapBy 'hexes', 'ownedBy'
 
+  blockedHexes:   Ember.computed.filterBy 'hexes', 'blocked'
   unblockedHexes: Ember.computed.not 'blockedHexes'
 
   clearSelected: ->
     hexes = @get 'hexes'
-    hexes.setEach 'selected', false
+    prev  = hexes.findBy('selected')
+    if prev?
+      @set 'previousSelected', prev
+      prev.set 'selected', false
+
+  endRound: ->
+    @incrementProperty 'rounds'
 
 `export default Map`
