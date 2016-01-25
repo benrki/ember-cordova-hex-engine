@@ -35,15 +35,18 @@ MapGeneratorController = Ember.Controller.extend
 
       for q in [0...@size.size]
         for r in [0...@size.size]
+          resource = randInterval 0, 10
           hexData =
             coordinates: { q, r }
             resources:
-              hexon: randInterval 0, 10
+              reinforce: resource
+              current:   resource
           hexJSON.push hexData
           hexes.push @store.createRecord 'hex', hexData
 
       map.get('hexes').pushObjects hexes
-      mapData = JSON.stringify _.extend map.toJSON(), { hexes: hexJSON }
+      mapData = JSON.stringify _.extend map.toJSON(),
+        { hexes: hexJSON, id: map.get('id') }
 
       @get('file').writeFile fileName, defaults.path, mapData, (err, fw) ->
         if err?

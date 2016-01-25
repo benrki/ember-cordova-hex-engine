@@ -87,7 +87,7 @@ PlayRoute = Ember.Route.extend
     hexes  = model.get 'hexes'
 
     hexes.forEach (h) -> h.get('ownedBy').then (o) ->
-      h.incrementProperty 'resources.hexon' if o is player
+      h.incrementProperty 'resources.current' if o is player
 
     if player.get 'isAI'
       @playAI player, =>
@@ -99,6 +99,7 @@ PlayRoute = Ember.Route.extend
 
   endGame: ->
     console.info "Game won!"
+    @send 'toggleNav', true
     @transitionTo 'map'
 
   endTurn: (model) ->

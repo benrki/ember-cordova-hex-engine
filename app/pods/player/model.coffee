@@ -14,30 +14,29 @@ Player = DS.Model.extend
   reinforce: (hex, i) ->
     if @get('reinforcements') >= i
       @decrementProperty 'reinforcements', i
-      hex.incrementProperty 'resources.hexon', i
+      hex.incrementProperty 'resources.current', i
       true
     else
       false
 
   attack: (source, target) ->
-    sourceHex = source.get 'resources.hexon'
-    targetHex = target.get 'resources.hexon'
+    sourceHex = source.get 'resources.current'
+    targetHex = target.get 'resources.current'
 
-    if sourceHex > targetHex
-      target.set 'resources.hexon', 0
-      source.decrementProperty 'resources.hexon', targetHex
+    if sourceHex >= targetHex
+      target.set 'resources.current', sourceHex - targetHex
+      source.set 'resources.current', 0
       target.set 'ownedBy', source.get 'ownedBy'
     else
-      target.decrementProperty 'resources.hexon', sourceHex
-      source.set 'resources.hexon', 0
+      target.set 'resources.current', targetHex - sourceHex
+      source.set 'resources.current', 0
 
   reinforceAI: -> console.log "AI reinforce"
 
   attackAI: -> console.log "AI attack"
 
-  replenishReinforce: -> @set 'reinforcements', @get('totalReinforce')
-
-  totalReinforce: Ember.computed 'hexes.[]', 'hexes.@each.resources.hexon', ->
-    @get('hexes').reduce ((total, hex) -> total + hex.get('resources.hexon')), 0
+  replenishReinforce: ->
+    @set 'reinforcements', @get('hexes').reduce(
+      ((total, hex) -> total + hex.get('resources.reinforce')), 0)
 
 `export default Player`
