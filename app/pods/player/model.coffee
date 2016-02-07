@@ -36,7 +36,7 @@ Player = DS.Model.extend
   attackAI: -> console.log "AI attack"
 
   replenishReinforce: ->
-    @set 'reinforcements', @get('hexes').reduce(
-      ((total, hex) -> total + hex.get('resources.reinforce')), 0)
+    @set 'reinforcements', @get('hexes').reduce ((total, hex) ->
+      total + hex.get('resources.reinforce')), 0
 
 `export default Player`

@@ -19,8 +19,8 @@ MapGeneratorController = Ember.Controller.extend
       hexes   = []
       hexJSON = []
 
-      randInterval = (max, min) ->
-        ceil random() * (max - min) + min
+      randResource = ->
+        _.find [defaults.resources.max..1], (v) -> random() <= 1/v
 
       console.info "Generating map of size: #{@size.size}"
 
@@ -35,7 +35,8 @@ MapGeneratorController = Ember.Controller.extend
 
       for q in [0...@size.size]
         for r in [0...@size.size]
-          resource = randInterval 0, 10
+          resource = randResource()
+          console.log "resource", resource
           hexData =
             coordinates: { q, r }
             resources:

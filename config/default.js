@@ -7,7 +7,10 @@ config = {
     ],
     size:     { name: "Small", size: 10 },
     path:     "maps",
-    fileType: ".hexmap"
+    fileType: ".hexmap",
+    resources: {
+      max: 6
+    }
   },
   folders: [
     "maps/default",
