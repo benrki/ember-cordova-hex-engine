@@ -8,7 +8,8 @@ Player = DS.Model.extend
   played:         DS.attr()
   color:          DS.attr    'string'
   isPlayer:       DS.attr    'boolean'
-  reinforcements: DS.attr 'number'
+  reinforcements: DS.attr    'number'
+  order:          DS.attr    'number'
   isAI:           Ember.computed.not 'isPlayer'
 
   reinforce: (hex, i) ->
@@ -31,12 +32,14 @@ Player = DS.Model.extend
       target.set 'resources.current', targetHex - sourceHex
       source.set 'resources.current', 0
 
-  reinforceAI: -> console.log "AI reinforce"
+  reinforceAI: ->
+    console.log "AI reinforce", @get 'name'
 
-  attackAI: -> console.log "AI attack"
+  attackAI: ->
+    console.log "AI attack", @get 'name'
 
   replenishReinforce: ->
     @set 'reinforcements', @get('hexes').reduce ((total, hex) ->
-      total + hex.get('resources.reinforce')), 0
+      total + hex.get('resources.reinforce') - 1), 0
 
 `export default Player`

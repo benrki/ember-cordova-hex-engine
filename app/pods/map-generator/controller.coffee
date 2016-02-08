@@ -36,7 +36,6 @@ MapGeneratorController = Ember.Controller.extend
       for q in [0...@size.size]
         for r in [0...@size.size]
           resource = randResource()
-          console.log "resource", resource
           hexData =
             coordinates: { q, r }
             resources:

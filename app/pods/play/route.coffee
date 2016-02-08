@@ -86,8 +86,17 @@ PlayRoute = Ember.Route.extend
     player = model.get 'activePlayer'
     hexes  = model.get 'hexes'
 
-    hexes.forEach (h) -> h.get('ownedBy').then (o) ->
-      h.incrementProperty 'resources.current' if o is player
+    if player.get('order') is 0
+      if model.get('rounds') isnt 0
+        console.info "End of turn", model.get 'rounds'
+        hexes.forEach (h) -> h.get('ownedBy').then (o) ->
+          h.incrementProperty 'resources.current' if o is player
+
+      model.get('hasWinner').then (won) =>
+        if won
+          @endGame()
+        else
+          model.endRound()
 
     if player.get 'isAI'
       @playAI player, =>
@@ -103,17 +112,12 @@ PlayRoute = Ember.Route.extend
     @transitionTo 'map'
 
   endTurn: (model) ->
-    model.get('hasWinner').then (win) =>
-      if win
-        @endGame()
-      else
-        if model.get('activePlayer').get 'isPlayer'
-          @controller.set 'showControls', false
-          model.set 'mode', 'NONE'
-        do model.advanceTurn
-        @playTurn model
-        model.endRound()
-        console.info "End of turn", model.get 'rounds'
+    if model.get('activePlayer').get 'isPlayer'
+      @controller.set 'showControls', false
+      model.set 'mode', 'NONE'
+
+    model.advanceTurn()
+    @playTurn model
 
   actions:
     goBack:               -> @send        'returnToIndex'

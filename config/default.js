@@ -20,9 +20,9 @@ config = {
     size: 25
   },
   players: [
-    { color: "red", isPlayer: true },
-    { color: "green" },
-    { color: "blue"  }
+    { color: "red", isPlayer: true, order: 0 },
+    { color: "green", order: 1 },
+    { color: "blue", order: 2  }
   ]
 };
 
